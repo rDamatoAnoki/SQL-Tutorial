@@ -1,0 +1,123 @@
+// CREATE DATABASE - Creare un nuovo DB
+CREATE DATABASE databaseName;
+
+// DROP DATABASE - Cancellare un DB esistente
+DROP DATABASE databaseName;
+
+// CREATE TABLE - Creare una nuova tabella in un db esistente
+CREATE TABLE table_name (
+    data1 datatype,
+    data2 datatype,
+    data3 datatype
+);
+CREATE TABLE Persons (
+    PersonID int,
+    LastName varchar(255),
+    FirstName varchar(255),
+    Address varchar(255),
+    City varchar(255) 
+);
+
+// DROP TABLE - Cancellare una tabella da un db esistente
+DROP TABLE table_name;
+
+// ALTER - Aggiungere, cancellare o moficare un campo della tabella
+ALTER TABLE table_name
+ADD column_name datatype;
+DROP COLUMN column_name;
+ALTER COLUMN column_name datatype;
+
+// CONSTRAINT - Per specificare le regole per i dati in una tabella
+CREATE TABLE table_name (
+    column1 datatype constraint,
+    column2 datatype constraint,
+    column3 datatype constraint,
+    ....
+);
+
+NOT NULL - La colonna non può avere una colonna NULL
+UNIQUE - I valori di una colonna sono differenti da altri
+PRIMARY KEY - Combinazione di NOT NULL e UNIQUE. UNIQUE identifica ogni riga della tabella
+FOREIGN KEY - UNIQUE identifica una riga/record di un'altra tabella
+CHECK - Tutti i valori in una tabella soddisfano una specifica condizione 
+DEFAULT - Imposta un valore di default quando nessun valore è specificato
+INDEX - Usato per creare e richiamare dati da un db molto velocemente
+
+// NOT NULL - La colonna non accetta valori null
+CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255) NOT NULL,
+    Age int
+);
+
+// UNIQUE - I valori di quella colonna sono tutti diversi
+-> MySql
+CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    UNIQUE (ID)
+);
+
+// PRIMARY KEY - Identifica unicamente ogni record in una tabella
+-> MySql
+CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    PRIMARY KEY (ID)
+);
+
+// FOREIGN KEY - Chiave che collega due tabelle
+-> MySql
+CREATE TABLE Orders (
+    OrderID int NOT NULL,
+    OrderNumber int NOT NULL,
+    PersonID int,
+    PRIMARY KEY (OrderID),
+    FOREIGN KEY (PersonID) REFERENCES Persons(PersonID)
+);
+
+// CHECK - Limite del range del valore che può contenere la colonna
+-> MySql
+CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    CHECK (Age>=18)
+);
+
+// DEFAULT - Valore di default in una colonna
+CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    City varchar(255) DEFAULT 'Sandnes'
+);
+
+// INDEX - Crea un indice nella tabella
+CREATE INDEX index_name
+ON table_name (column1, column2, ...);
+
+CREATE INDEX idx_pname
+ON Persons (LastName, FirstName);
+
+// AUTO_INCREMENT - genera automaticamente un nuovo numero per ogni nuovo record inserito in tabella
+CREATE TABLE Persons (
+    ID int NOT NULL AUTO_INCREMENT,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    PRIMARY KEY (ID)
+);
+
+// CREATE VIEW - Tabella virtuale basata sui risultati di un statement SQL
+CREATE VIEW view_name AS
+SELECT column1, column2, ...
+FROM table_name
+WHERE condition;
