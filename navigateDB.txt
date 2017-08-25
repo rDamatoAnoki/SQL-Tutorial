@@ -1,0 +1,149 @@
+// SELECT - Selezionare un dato da db
+SELECT column1, column2, ...
+FROM table_name;
+
+SELECT * FROM table_name;
+
+// SELECT DISTINCT - Seleziona solo valori differenti
+SELECT DISTINCT column1, column2, ...
+FROM table_name;
+
+SELECT DISTINCT Country FROM Customers;
+
+// WHERE - FIltra la selezione
+SELECT column1, column2, ...
+FROM table_name
+WHERE condition;
+
+// AND/OR/NOT - Filtra la selezione
+SELECT column1, column2, ...
+FROM table_name
+WHERE condition1 AND condition2 AND condition3 ...;
+WHERE condition1 OR condition2 OR condition3 ...;
+WHERE NOT condition1;
+
+// ORDER BY - ordina i dati in ordine crescente o decrescente
+SELECT column1, column2, ...
+FROM table_name
+ORDER BY column1, column2, ... ASC|DESC;
+
+// INSERT INTO - Inserisci nuovi dati
+INSERT INTO table_name (column1, column2, column3, ...)
+VALUES (value1, value2, value3, ...);
+
+// NULL - Seleziona la colonna dove il dato è NULL
+SELECT column_names
+FROM table_name
+WHERE column_name IS NULL;
+
+// UPDATE - Modifica di un record in una tabella
+UPDATE table_name
+SET column1 = value1, column2 = value2, ...
+WHERE condition;
+
+// DELETE - Elimina intera riga
+DELETE FROM table_name
+WHERE condition;
+
+// SELECT TOP - Selezionare e visualizzare n righe da tabella
+- SELECT TOP n * FROM table_name;
+- SELECT * FROM table_name;
+  LIMIT n;
+- SELECT * FROM table_name;
+  WHERE ROWNUM <= n;
+
+// SELECT MIN/MAX - Selezionare il minimo/massimo valore di una tabella
+SELECT MIN/MAX(Price) AS SmallestPrice/LargestPrice
+FROM Products;
+
+// SELECT COUNT/AVG/SUM - Conta, fai la media, somma gli elementi di una tabella
+SELECT COUNT/AVG/SUM(column_name)
+FROM table_name
+WHERE condition;
+
+// LIKE - Usato per cercare un determinato pattern in una tabella
+SELECT column1, column2
+FROM table_name
+WHERE columnN LIKE pattern;
+
+SELECT * FROM Customers
+WHERE CustomerName LIKE 'a%'; //cerca tutti i Customers che iniziano con la lettera "a"
+'%or%' tutti i Customers che hanno "or" al loro interno
+'_r%' tutti i Customers che hanno "r" come seconda lettera
+'a%o' tutti i Customers che iniziano con "a" e finiscono con "o"
+WHERE CustomerName NOT LIKE 'a%'; tutti i Customers che NON iniziano con "a"
+
+// IN - Permette di selezionare valori multipli in WHERE condition
+SELECT * FROM Customers
+WHERE Country IN ('Germany', 'France', 'UK');
+
+// BETWEEN - Seleziona valori in un range
+SELECT * FROM Products
+WHERE Price BETWEEN 10 AND 20;
+
+// AS - Crea Alias
+SELECT CustomerID AS ID, CustomerName AS Customer
+FROM Customers;
+
+// INNER JOIN - Unisce record che hanno stessi valori nelle tabelle
+SELECT column_name(s)
+FROM table1
+INNER JOIN table2 ON table1.column_name = table2.column_name;
+
+// LEFT JOIN - Ritorna i record dalla tabella1 e i record matchati dalla tabella2
+SELECT column_name(s)
+FROM table1
+LEFT JOIN table2 ON table1.column_name = table2.column_name;
+
+// RIGHT JOIN - Ritorna i record dalla tabella2 e i record matchati dalla tabella1
+SELECT column_name(s)
+FROM table2
+LEFT JOIN table1 ON table2.column_name = table1.column_name;
+
+// FULL JOIN - Ritorna tutti i valori quando c'è match su tutte e due le tabelle
+SELECT column_name(s)
+FROM table1
+FULL OUTER JOIN table2 ON table1.column_name = table2.column_name;
+
+// GROUP BY - mostra i record raggruppati
+SELECT COUNT(CustomerID), Country
+FROM Customers
+GROUP BY Country;
+
+SELECT Shippers.ShipperName, COUNT(Orders.OrderID) AS NumberOfOrders FROM Orders
+LEFT JOIN Shippers ON Orders.ShipperID = Shippers.ShipperID
+GROUP BY ShipperName;
+
+// HAVING - Condizione
+Mostra il numero di Customer in ogni Country, include solo i countries con più di 5 customers
+SELECT COUNT(CustomerID), Country
+FROM Customers
+GROUP BY Country
+HAVING COUNT(CustomerID) > 5
+ORDER BY COUNT(CustomerID) DESC;
+
+// WHERE EXIST - Testa l'esistenza di uno o più record in una subquery
+SELECT column_name(s)
+FROM table_name
+WHERE EXISTS
+(SELECT column_name FROM table_name WHERE condition);
+
+// ANY/ALL - Ritornano TRUE se è soddisfatta la condizione
+SELECT column_name(s)
+FROM table_name
+WHERE column_name operator ANY/ALL
+(SELECT column_name FROM table_name WHERE condition);
+
+// SELECT INTO - Copia i dati da una tabella ad un'altra
+SELECT * INTO newtable [IN externaldb]
+FROM oldtable
+WHERE condition;
+
+// INSERT INTO SELECT - Copia i dati da una tabella e li inserisce in un'altra
+INSERT INTO table2
+SELECT * FROM table1
+WHERE condition;
+
+// COMMENT - Commentare
+-- Select all:
+SELECT * FROM Customers;
